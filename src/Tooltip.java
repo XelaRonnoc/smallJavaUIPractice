@@ -32,8 +32,8 @@ public class Tooltip {
             g.fillRoundRect(mousePos.x+xBackgroundOffset, mousePos.y+yBackgroundOffset, width, height, arc, arc);
             g.setColor(Color.BLACK);
             g.setFont(new Font("ToolTipFont", Font.ITALIC, 16));
-            // if below if a boundary (first case) or a surface (second case);
-            if(currentCell.getClass().getName().equals("Fence") || currentCell.getClass().getName().equals("Wall")){
+            // if below is a boundary (first case) or a surface (second case);
+            if(currentCell.movementCost < 0){
                 g.drawString("" + currentCell.getClass().getName(), mousePos.x+xTextOffset, mousePos.y+yTextOffset);
                 g.drawString("Cannot cross", mousePos.x+xTextOffset, mousePos.y+yTextOffset+16);
             }else{
@@ -44,7 +44,7 @@ public class Tooltip {
     }
 
     static void setTTSizeLoc(Point mousePos){ // changes size and positon of tool tip depending on contents and postion in the grid
-        if(currentCell.getClass().getName().equals("Fence") || currentCell.getClass().getName().equals("Wall")){
+        if(currentCell.movementCost < 0){
             width = 100;
             if(mousePos.x/Cell.size >=17){ // if towards right side of screen
                 xBackgroundOffset = -90;
