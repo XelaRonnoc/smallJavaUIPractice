@@ -5,9 +5,10 @@ public class Stage {
   Grid grid;
 
   public Stage() {
-    grid = new Grid();
+    grid = new Grid(); // creates a new grid
   }
 
+  // calls grid paint method
   public void paint(Graphics g, Point mouseLoc) {
     grid.paint(g, mouseLoc);  
   }

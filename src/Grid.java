@@ -2,12 +2,13 @@ import java.awt.Graphics;
 import java.awt.Point;
 
 public class Grid {
-  Cell[][] cells = new Cell[20][20];
+  Cell[][] cells = new Cell[20][20]; // creates a new array of cells 20 by 20
   
   public Grid() {
     for(int i=0; i<cells.length; i++) {
       for(int j=0; j<cells[i].length; j++) {
-        double mapKey = Math.random()*100;
+        double mapKey = Math.random()*100; // sets random value
+        // below is used to assign what type of cell will be at current array position through the percentages
         if(mapKey < 10){
           cells[i][j] = new Wall(10+Cell.size*i, 10+Cell.size*j);
         }else if(mapKey >=10 && mapKey <20){
@@ -25,7 +26,7 @@ public class Grid {
     }
   }
 
-  public void paint(Graphics g, Point mousePos) {
+  public void paint(Graphics g, Point mousePos) { // call the cells paint methods
     for(int i=0; i<cells.length; i++) {
       for(int j=0; j<cells[i].length; j++) {
         cells[i][j].paint(g, mousePos);

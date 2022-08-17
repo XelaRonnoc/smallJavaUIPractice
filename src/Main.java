@@ -6,26 +6,21 @@ import javax.swing.JPanel;
 
 public class Main extends JFrame {
 
-  static public long startTime;
+  // variables used for elapsed time function
+  static public long startTime; 
   static public long elapsedTime; // milliseconds
   
     class Canvas extends JPanel {
       Stage stage = new Stage();
 
       public Canvas() {
-
         setPreferredSize(new Dimension(720, 720));
       }
 
       @Override
-      public void paint(Graphics g) {
-
-       
-        stage.paint(g, getMousePosition());
-        Tooltip.paint(g, getMousePosition());
-
-
-        
+      public void paint(Graphics g) { 
+        stage.paint(g, getMousePosition()); // paints stage which will as required call all other pain methods bar
+        Tooltip.paint(g, getMousePosition()); // paints tool tip last so is ontop of everything 
       }
     }
 
@@ -42,14 +37,14 @@ public class Main extends JFrame {
       window.run();
     }
 
-    public void run() {
+    public void run() { // continous loop while prgram is running
       while(true) {
         repaint();
       }
     }
 
-
-    static public void timeElapsed(){
+    // starts a timer from when startTime is set to when this function is called which is recorded in elapsedTime var
+    static public void timeElapsed(){ 
       long currentTime = System.currentTimeMillis();
       elapsedTime = currentTime - startTime;
   }
