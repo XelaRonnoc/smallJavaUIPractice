@@ -14,7 +14,7 @@ public class Tooltip {
     static private int width;
     static private int height = 35;
     static private int arc = 10;
-    static public Double HoverDuration = 2.0; // seconds
+    static public Double HoverDuration = 1.0; // seconds
     static public boolean isVisible = false;
 
 
