@@ -24,11 +24,13 @@ public abstract class Cell extends Rectangle {
     g.drawRect(x, y, size, size);
 
     if(contains(mousePos)) { // if mouse is in the cell
-      Tooltip.currentCell = this; // tooltip's cell now = this cell
+      
       if(!entered){ // if this is the first frame that the mouse entered the cell 
+        Tooltip.isVisible = false; // makes tool tip invisible if it was previously visible from another cell
+        Tooltip.currentCell = this; // tooltip's cell now = this cell
         Main.startTime = System.currentTimeMillis(); // records time that mouse entered cell
         entered = true; // sets the mouse was in this cell
-        Tooltip.isVisible = false; // makes tool tip invisible if it was previously visible from another cell
+       
       }
 
       if(entered){

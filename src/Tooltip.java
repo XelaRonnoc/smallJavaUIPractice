@@ -44,11 +44,14 @@ public class Tooltip {
     }
 
     static void setTTSizeLoc(Point mousePos){ // changes size and positon of tool tip depending on contents and postion in the grid
+        if(mousePos == null){
+            return;
+        }
         if(currentCell.movementCost < 0){
             width = 100;
-            if(mousePos.x/Cell.size >=17){ // if towards right side of screen
-                xBackgroundOffset = -90;
-                xTextOffset = -88;
+            if((mousePos.x-10)/Cell.size >=17){ // if towards right side of screen
+                xBackgroundOffset = -105;
+                xTextOffset = -103;
             }else{
                 xBackgroundOffset = 13;
                 xTextOffset = 15;
@@ -56,7 +59,7 @@ public class Tooltip {
 
         }else{ // if not a boundary
             width = 145;
-            if(mousePos.x/Cell.size >=15){ // if towards right side of screen
+            if((mousePos.x-10)/Cell.size >= 15){ // if towards right side of screen
                 xBackgroundOffset = -150;
                 xTextOffset = -148;
             }else{
@@ -65,9 +68,9 @@ public class Tooltip {
             }
         }
         // if towards bottom of screen
-        if(mousePos.y/Cell.size >=18){
-            yBackgroundOffset = -20;
-            yTextOffset = -5;
+        if((mousePos.y-10)/Cell.size>=18){
+            yBackgroundOffset = -30;
+            yTextOffset = -15;
         }else{
             yBackgroundOffset = 2;
             yTextOffset = 17;
