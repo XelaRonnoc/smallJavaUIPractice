@@ -4,11 +4,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class Main extends JFrame {
-
-  // variables used for elapsed time function
-  static public long startTime; // system time
-  static public long elapsedTime; // milliseconds
-  
     class Canvas extends JPanel {
       Stage stage = new Stage();
 
@@ -42,9 +37,5 @@ public class Main extends JFrame {
       }
     }
 
-    // starts a timer from when startTime is set to when this function is called which is recorded in elapsedTime var
-    static public void timeElapsed(){ 
-      long currentTime = System.currentTimeMillis();
-      elapsedTime = currentTime - startTime;
-  }
+
 }

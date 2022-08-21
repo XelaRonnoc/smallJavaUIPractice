@@ -13,8 +13,8 @@ public class Tooltip {
     static private int width; // width of tool tip box
     static private int height = 35; // height of tool tip box
     static private int arc = 10; // corner arc of rounded rect for tool tip box
-    static public Double HoverDuration = 1.0; // seconds
-    static public boolean isVisible = false; // boolean helps determine if to paint tooltip or not along with mousePos
+    static private Double HoverDuration = 1.0; // seconds
+    static private boolean isVisible = false; // boolean helps determine if to paint tooltip or not along with mousePos
 
 
     
@@ -33,12 +33,12 @@ public class Tooltip {
             g.setColor(Color.BLACK);
             g.setFont(new Font("ToolTipFont", Font.ITALIC, 16));
             // if below is a boundary (first case) or a surface (second case);
-            if(currentCell.movementCost < 0){
+            if(currentCell.getMovementCost() < 0){
                 g.drawString("" + currentCell.getClass().getName(), mousePos.x+xTextOffset, mousePos.y+yTextOffset);
                 g.drawString("Cannot cross", mousePos.x+xTextOffset, mousePos.y+yTextOffset+16);
             }else{
                 g.drawString("" + currentCell.getClass().getName(), mousePos.x+xTextOffset, mousePos.y+yTextOffset);
-                g.drawString("CrossingTime = " + currentCell.movementCost/5, mousePos.x+xTextOffset, mousePos.y+yTextOffset+16);
+                g.drawString("CrossingTime = " + currentCell.getMovementCost()/5, mousePos.x+xTextOffset, mousePos.y+yTextOffset+16);
             }
         }
     }
@@ -47,7 +47,7 @@ public class Tooltip {
         if(mousePos == null){
             return;
         }
-        if(currentCell.movementCost < 0){
+        if(currentCell.getMovementCost() < 0){
             width = 100;
             if((mousePos.x-10)/Cell.size >=17){ // if towards right side of screen
                 xBackgroundOffset = -105;
@@ -59,7 +59,7 @@ public class Tooltip {
 
         }else{ // if not a boundary
             width = 145;
-            if((mousePos.x-10)/Cell.size >= 15){ // if towards right side of screen
+            if((mousePos.x-10)/Cell.getCellSize() >= 15){ // if towards right side of screen
                 xBackgroundOffset = -150;
                 xTextOffset = -148;
             }else{
@@ -68,7 +68,7 @@ public class Tooltip {
             }
         }
         // if towards bottom of screen
-        if((mousePos.y-10)/Cell.size>=18){
+        if((mousePos.y-10)/Cell.getCellSize()>=18){
             yBackgroundOffset = -30;
             yTextOffset = -15;
         }else{
@@ -81,11 +81,23 @@ public class Tooltip {
         if(mousePos == null){
             return false;
         }
-        if(mousePos.x > 710 || mousePos.x < 10 || mousePos.y > 710 || mousePos.y < 10){
+        if(mousePos.x >= 710 || mousePos.x <= 10 || mousePos.y >= 710 || mousePos.y <= 10){
             return false;
         }
         return true;
     }
 
+    public static double getHoverDuration(){
+        return HoverDuration;
+    }
+
+    public static boolean getVisibility(){
+        return isVisible;
+    }
+
+    public static void setVisibility(boolean vis){
+        isVisible = vis;
+        return;
+    }
 
 }

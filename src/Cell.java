@@ -6,10 +6,13 @@ import java.awt.Rectangle;
 
 public abstract class Cell extends Rectangle {
   // fields
-  static int size = 35; // size of the cells
-  Color color; // cell color determined by children 
-  int movementCost; // movement cost determined by children 
-  boolean entered = false; // allows cell to check when mouse enters the cell
+  protected static int size = 35; // size of the cells
+  protected Color color; // cell color determined by children 
+  protected int movementCost; // movement cost determined by children 
+  protected boolean entered = false; // allows cell to check when mouse enters the cell
+  protected long startTime;
+  protected long currentTime;
+  protected long elapsedTime;
 
   // constructors
   public Cell(int inX, int inY) {
@@ -26,17 +29,19 @@ public abstract class Cell extends Rectangle {
     if(contains(mousePos)) { // if mouse is in the cell
       
       if(!entered){ // if this is the first frame that the mouse entered the cell 
-        Tooltip.isVisible = false; // makes tool tip invisible if it was previously visible from another cell
+        Tooltip.setVisibility(false); // makes tool tip invisible if it was previously visible from another cell
         Tooltip.currentCell = this; // tooltip's cell now = this cell
-        Main.startTime = System.currentTimeMillis(); // records time that mouse entered cell
+        startTime = System.currentTimeMillis(); // records time that mouse entered cell
         entered = true; // sets the mouse was in this cell
        
       }
 
       if(entered){
-        Main.timeElapsed(); // sets the elapsed time variable to time since start time was reset
-        if(Main.elapsedTime/1000 >= Tooltip.HoverDuration){ // if elapsed time greated than the set hover wait period
-          Tooltip.isVisible = true; //display tooltip
+        currentTime = System.currentTimeMillis();
+        elapsedTime = currentTime - startTime;
+        // sets the elapsed time variable to time since start time was reset
+        if(elapsedTime/1000 >= Tooltip.getHoverDuration()){ // if elapsed time greated than the set hover wait period
+          Tooltip.setVisibility(true); //display tooltip
         }
       }
     }else{
@@ -51,4 +56,14 @@ public abstract class Cell extends Rectangle {
       return false;
     }
   }
+
+  public int getMovementCost(){
+    return movementCost;
+  }
+
+  public static int getCellSize(){
+    return size;
+  }
+
+  
 }

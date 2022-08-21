@@ -2,7 +2,7 @@ import java.awt.Graphics;
 import java.awt.Point;
 
 public class Grid {
-  Cell[][] cells = new Cell[20][20]; // creates a new array of cells 20 by 20
+  private Cell[][] cells = new Cell[20][20]; // creates a new array of cells 20 by 20
   
   public Grid() {
     for(int i=0; i<cells.length; i++) {
