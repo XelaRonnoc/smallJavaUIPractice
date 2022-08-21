@@ -1,13 +1,12 @@
 import java.awt.Dimension;
 import java.awt.Graphics;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class Main extends JFrame {
 
   // variables used for elapsed time function
-  static public long startTime; 
+  static public long startTime; // system time
   static public long elapsedTime; // milliseconds
   
     class Canvas extends JPanel {
