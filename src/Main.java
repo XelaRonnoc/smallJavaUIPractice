@@ -2,12 +2,9 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import java.awt.Point;
-
 public class Main extends JFrame {
     class Canvas extends JPanel {
       Stage stage = new Stage();
-      Point mouseStop;
 
       public Canvas() {
         setPreferredSize(new Dimension(720, 720));
@@ -15,7 +12,6 @@ public class Main extends JFrame {
 
       @Override
       public void paint(Graphics g) { 
-        mouseStop = getMousePosition();
         stage.paint(g, getMousePosition()); // paints stage which will as required call all other pain methods bar
         Tooltip.paint(g, getMousePosition()); // paints tool tip last so is ontop of everything 
       }
@@ -36,6 +32,10 @@ public class Main extends JFrame {
 
     public void run() { // continous loop while prgram is running
       while(true) {
+        try{
+        Thread.sleep(20);
+        }catch (InterruptedException e){
+        }
         repaint();
       }
     }

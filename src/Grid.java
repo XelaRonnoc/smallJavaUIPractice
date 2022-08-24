@@ -2,8 +2,10 @@ import java.awt.Graphics;
 import java.awt.Point;
 
 public class Grid {
+  //fields
   private Cell[][] cells = new Cell[20][20]; // creates a new array of cells 20 by 20
   
+  //methods
   public Grid() {
     for(int i=0; i<cells.length; i++) {
       for(int j=0; j<cells[i].length; j++) {
@@ -25,7 +27,7 @@ public class Grid {
       }
     }
   }
-
+  
   public void paint(Graphics g, Point mousePos) { // call the cells paint methods
     for(int i=0; i<cells.length; i++) {
       for(int j=0; j<cells[i].length; j++) {

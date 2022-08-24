@@ -8,11 +8,11 @@ public abstract class Cell extends Rectangle {
   // fields
   protected static int size = 35; // size of the cells
   protected Color color; // cell color determined by children 
-   // movement cost determined by children 
-  protected boolean entered = false; // allows cell to check when mouse enters the cell
-  protected long startTime;
+  protected long startTime; 
   protected long currentTime;
   protected long elapsedTime;
+  protected boolean mouseStopped = false; // used to record initial stopping position of mouse
+  protected Point mouseStartStop; // initial stopping position of mouse 
 
   // constructors
   public Cell(int inX, int inY) {
@@ -26,26 +26,32 @@ public abstract class Cell extends Rectangle {
     g.setColor(Color.BLACK);
     g.drawRect(x, y, size, size);
 
-    if(contains(mousePos)) { // if mouse is in the cell
-      
-      if(!entered){ // if this is the first frame that the mouse entered the cell 
-        Tooltip.setVisibility(false); // makes tool tip invisible if it was previously visible from another cell
-        Tooltip.currentCell = this; // tooltip's cell now = this cell
-        startTime = System.currentTimeMillis(); // records time that mouse entered cell
-        entered = true; // sets the mouse was in this cell
-       
-      }
+    mouseStopCheck(mousePos);
+  }
 
-      if(entered){
+  public void mouseStopCheck(Point mousePos){
+    if(contains(mousePos)) { 
+      Tooltip.currentCell = this;
+      if(!mouseStopped){
+        Tooltip.setVisibility(false);
+        mouseStartStop = mousePos;
+        startTime = System.currentTimeMillis();
+        mouseStopped = true;
+      }
+  
+      if(mouseStopped){
         currentTime = System.currentTimeMillis();
         elapsedTime = currentTime - startTime;
-        // sets the elapsed time variable to time since start time was reset
-        if(elapsedTime/1000 >= Tooltip.getHoverDuration()){ // if elapsed time greated than the set hover wait period
-          Tooltip.setVisibility(true); //display tooltip
+        if(mouseStartStop.equals(mousePos)){
+          if(elapsedTime/1000 >= Tooltip.getHoverDuration()){
+            Tooltip.setVisibility(true);
+          }
+        }else{
+          mouseStopped = false;
         }
       }
     }else{
-      entered = false; // when mouse leaves cell reset to false 
+      mouseStopped = false;
     }
   }
 
