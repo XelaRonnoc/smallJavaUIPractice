@@ -8,7 +8,7 @@ public abstract class Cell extends Rectangle {
   // fields
   protected static int size = 35; // size of the cells
   protected Color color; // cell color determined by children 
-  protected int movementCost; // movement cost determined by children 
+   // movement cost determined by children 
   protected boolean entered = false; // allows cell to check when mouse enters the cell
   protected long startTime;
   protected long currentTime;
@@ -55,10 +55,6 @@ public abstract class Cell extends Rectangle {
     } else {
       return false;
     }
-  }
-
-  public int getMovementCost(){
-    return movementCost;
   }
 
   public static int getCellSize(){

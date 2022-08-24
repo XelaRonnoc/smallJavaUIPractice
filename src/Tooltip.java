@@ -16,29 +16,24 @@ public class Tooltip {
     static private Double HoverDuration = 1.0; // seconds
     static private boolean isVisible = false; // boolean helps determine if to paint tooltip or not along with mousePos
 
-
-    
-
     public Tooltip(){
-
+        
     }
  
    static public void paint(Graphics g, Point mousePos){
         if(mouseIn(mousePos) && isVisible){ // if mouse is in frame and not outside of it and isVisible is true then paint the tooltip
             setTTSizeLoc(mousePos);
-            g.setColor(Color.BLACK);
-            g.drawRoundRect(mousePos.x+xBackgroundOffset, mousePos.y+yBackgroundOffset, width, height, arc, arc);
             g.setColor(background);
             g.fillRoundRect(mousePos.x+xBackgroundOffset, mousePos.y+yBackgroundOffset, width, height, arc, arc);
             g.setColor(Color.BLACK);
             g.setFont(new Font("ToolTipFont", Font.ITALIC, 16));
             // if below is a boundary (first case) or a surface (second case);
-            if(currentCell.getMovementCost() < 0){
+            if(currentCell instanceof Boundary){
                 g.drawString("" + currentCell.getClass().getName(), mousePos.x+xTextOffset, mousePos.y+yTextOffset);
                 g.drawString("Cannot cross", mousePos.x+xTextOffset, mousePos.y+yTextOffset+16);
             }else{
                 g.drawString("" + currentCell.getClass().getName(), mousePos.x+xTextOffset, mousePos.y+yTextOffset);
-                g.drawString("CrossingTime = " + currentCell.getMovementCost()/5, mousePos.x+xTextOffset, mousePos.y+yTextOffset+16);
+                g.drawString("CrossingTime = " + ((Surface) currentCell).getMovementCost()/5, mousePos.x+xTextOffset, mousePos.y+yTextOffset+16);
             }
         }
     }
@@ -47,7 +42,7 @@ public class Tooltip {
         if(mousePos == null){
             return;
         }
-        if(currentCell.getMovementCost() < 0){
+        if(currentCell instanceof Boundary){
             width = 100;
             if((mousePos.x-10)/Cell.size >=17){ // if towards right side of screen
                 xBackgroundOffset = -105;
